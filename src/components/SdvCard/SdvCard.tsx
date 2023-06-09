@@ -12,8 +12,11 @@ export const SdvCard = (props: {
 			borderWidth: "9px",
 			backgroundColor: "#ffffcc",
 			width: "100%",
-			padding: 16,
-			borderRadius: 16,
+			paddingLeft: 4,
+			paddingRight: 4,
+			paddingTop: 8,
+			paddingBottom: 8,
+			borderRadius: 9,
 		}}>
 			{props.children}
 		</Box>

@@ -1,9 +1,10 @@
+import { Typography } from "@mui/material"
 import { SdvCard } from "../../../components/SdvCard/SdvCard"
 
 export const Editor = () => {
 	return (
 		<SdvCard>
-			<p>Sheyke</p>
+			<Typography>Editor</Typography>
 		</SdvCard>
 	)
 }

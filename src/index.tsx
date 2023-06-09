@@ -3,15 +3,31 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import { CssBaseline } from '@mui/material';
+import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
+import { SaveContextProvider } from './contexts/SaveContext';
 
 const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement
 );
+
+const theme = createTheme({
+	typography: {
+		allVariants: {
+			color: "#541304",
+			fontFamily: "Stardew_Valley",
+			fontSize: 30
+		}
+	}
+});
+
 root.render(
 	<React.StrictMode>
 		<CssBaseline />
-		<App />
+		<ThemeProvider theme={theme}>
+			<SaveContextProvider>
+				<App />
+			</SaveContextProvider>
+		</ThemeProvider>
 	</React.StrictMode>
 );
 
