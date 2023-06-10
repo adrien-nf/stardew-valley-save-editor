@@ -40,6 +40,7 @@ export enum Path {
 	PLAYER_CLUB_COINS = "player.clubCoins",
 	PLAYER_MAX_HEALTH = "player.maxHealth",
 	PLAYER_IS_MALE = "player.isMale",
+	PLAYER_HAS_GREENHOUSE = "player.hasGreenhouse",
 	PLAYER_SAVE_TIME = "elements.0.elements.0.elements.160.elements.0.text",
 	PLAYER_TOTAL_MONEY_EARNED = "player.totalMoneyEarned",
 	PLAYER_MONEY = "player.money",

@@ -1,38 +1,14 @@
-import { TextField } from "@mui/material";
 import { Field } from "../../pages/Home/Editor/Fields";
-import { useState, useEffect, useContext } from "react";
-import { SaveContext } from "../../contexts/SaveContext";
-import { Path } from "../../enums/Path";
+import { SdvInputText } from "./SdvInputText";
+import { SdvInputNumber } from "./SdvInputNumber";
+import { SdvInputBoolean } from "./SdvInputBoolean";
 
 export const SdvInput = (props: {
 	field: Field
 }) => {
-	const { get, save, set } = useContext(SaveContext);
-
-	const [value, setValue] = useState("");
-
-	useEffect(() => {
-		setValue(get(Path[props.field.key]) || "")
-	}, [save])
-
-	useEffect(() => {
-		if (value !== "")
-			set(Path[props.field.key], value);
-	}, [value])
-
-	return (
-		<TextField
-			label={props.field.key}
-			type={props.field.type === "boolean" ? "text" : props.field.type}
-			variant="outlined"
-			size="small"
-			InputLabelProps={{
-				shrink: true,
-			}}
-			value={value}
-			onChange={(e) => setValue(e.target.value)}
-			style={{
-				flexGrow: 1
-			}}
-		/>)
+	switch (props.field.type) {
+		case "text": return <SdvInputText field={props.field} />
+		case "number": return <SdvInputNumber field={props.field} />
+		case "boolean": return <SdvInputBoolean field={props.field} />
+	}
 }

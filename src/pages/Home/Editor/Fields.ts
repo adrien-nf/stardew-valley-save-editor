@@ -87,31 +87,19 @@ const PlayerMisc: Block = {
 		]
 }
 
+// Crashes the game
 // export const FarmForm: Block = {
-// 	key: "FARM_FORM",
+// 	key: "FARM_BLOCK",
 // 	fields: [
 // 		{
-// 			key: "PLAYER_NAME",
-// 			type: "text",
+// 			key: "PLAYER_HAS_GREENHOUSE",
+// 			type: "boolean",
 // 		},
 // 	],
 // }
 
-// export const MiscellaneousForm: Block[] = [
-// 	{
-// 		key: "MISC",
-// 		fields: [
-// 			{
-// 				key: "PLAYER_NAME",
-// 				type: "text",
-// 			},
-// 		],
-// 	},
-// ];
-
 export const Blocks: Block[] = [
 	PlayerInfos,
 	PlayerCharacteristics,
-	// PlayerMisc,
 	// FarmForm
 ]

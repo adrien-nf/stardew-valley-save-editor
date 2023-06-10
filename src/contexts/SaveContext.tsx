@@ -66,7 +66,6 @@ export function SaveContextProvider(props: SaveContextProviderProps): JSX.Elemen
 
 			try {
 				const result = xmljs.xml2js(e.target.result as string);
-				console.log(result);
 
 				const isValidStardewValleySaveFile = _.get(result, "elements.0.name") === "SaveGame";
 
@@ -74,6 +73,7 @@ export function SaveContextProvider(props: SaveContextProviderProps): JSX.Elemen
 					throw new Error("File isn't a valid Stardew Valley file.");
 				}
 
+				console.log(result);
 				setSave(result)
 				setFilename(file.name);
 			} catch {
