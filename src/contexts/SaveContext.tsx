@@ -14,6 +14,7 @@ interface SaveContextProps {
 	setSave: (save: Save) => void,
 	isLoading: boolean,
 	loadFromFile: (content: any) => void,
+	download: () => void,
 }
 
 export const SaveContext = createContext<SaveContextProps>({
@@ -24,6 +25,9 @@ export const SaveContext = createContext<SaveContextProps>({
 	isLoading: false,
 	loadFromFile: () => {
 		//
+	},
+	download: () => {
+		//
 	}
 });
 
@@ -33,15 +37,16 @@ interface SaveContextProviderProps {
 
 export function SaveContextProvider(props: SaveContextProviderProps): JSX.Element {
 	const [save, setSave] = useState<Save>();
+	const [filename, setFilename] = useState<string>();
 	const [isFileBackdropOpen, setIsFileBackdropOpen] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [open, setOpen] = useState(false);
+	const [openDownload, setOpenDownload] = useState(false);
 
-	const loadFromFile = (file: any) => {
+	const loadFromFile = (file: File) => {
 		const reader = new FileReader()
 
 		setIsLoading(true);
-		setSave(undefined)
 
 		reader.onload = (e) => {
 			if (!e.target) {
@@ -51,6 +56,7 @@ export function SaveContextProvider(props: SaveContextProviderProps): JSX.Elemen
 			try {
 				const result = xmljs.xml2js(e.target.result as string);
 				setSave(result)
+				setFilename(file.name);
 				console.log(result);
 			} catch {
 				setOpen(true);
@@ -63,9 +69,26 @@ export function SaveContextProvider(props: SaveContextProviderProps): JSX.Elemen
 		reader.readAsText(file)
 	}
 
+	const download = () => {
+		const xmltext = xmljs.js2xml(save as object);
+
+		const pom = document.createElement('a');
+		const bb = new Blob([xmltext], { type: 'text/plain' });
+
+		pom.setAttribute('href', window.URL.createObjectURL(bb));
+		pom.setAttribute('download', filename || "save");
+
+		pom.dataset.downloadurl = ['text/plain', pom.download, pom.href].join(':');
+		pom.draggable = true;
+		pom.classList.add('dragout');
+
+		pom.click();
+		setOpenDownload(true);
+	}
+
 	return (
 		<SaveContext.Provider value={{
-			save, setSave, isLoading, loadFromFile
+			save, setSave, isLoading, loadFromFile, download
 		}}
 		>
 			<Dropzone
@@ -104,6 +127,7 @@ export function SaveContextProvider(props: SaveContextProviderProps): JSX.Elemen
 				)}
 			</Dropzone>
 			<SdvSnackbar open={open} setOpen={setOpen} message="File isn't a valid Stardew Valley save file." />
+			<SdvSnackbar open={openDownload} setOpen={setOpenDownload} message={`File downloaded as ${filename}.`} />
 		</SaveContext.Provider >
 	);
 }
