@@ -7,6 +7,7 @@ import Dropzone from 'react-dropzone';
 import { Backdrop, Container, Typography } from '@mui/material';
 import { SdvCard } from '../components/SdvCard/SdvCard';
 import xmljs from "xml-js";
+import { SdvSnackbar } from '../components/SdvSnackbar/SdvSnackbar';
 
 interface SaveContextProps {
 	save: Save | undefined,
@@ -34,11 +35,10 @@ export function SaveContextProvider(props: SaveContextProviderProps): JSX.Elemen
 	const [save, setSave] = useState<Save>();
 	const [isFileBackdropOpen, setIsFileBackdropOpen] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
+	const [open, setOpen] = useState(false);
 
 	const loadFromFile = (file: any) => {
 		const reader = new FileReader()
-
-		if (file.name.includes(".")) return;
 
 		setIsLoading(true);
 		setSave(undefined)
@@ -53,7 +53,7 @@ export function SaveContextProvider(props: SaveContextProviderProps): JSX.Elemen
 				setSave(result)
 				console.log(result);
 			} catch {
-
+				setOpen(true);
 			} finally {
 				setIsLoading(false);
 			}
@@ -103,6 +103,7 @@ export function SaveContextProvider(props: SaveContextProviderProps): JSX.Elemen
 					</section>
 				)}
 			</Dropzone>
+			<SdvSnackbar open={open} setOpen={setOpen} message="File isn't a valid Stardew Valley save file." />
 		</SaveContext.Provider >
 	);
 }
