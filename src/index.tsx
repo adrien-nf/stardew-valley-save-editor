@@ -15,8 +15,8 @@ const theme = createTheme({
 		allVariants: {
 			color: "#541304",
 			fontFamily: "Stardew_Valley",
-			fontSize: 30
-		}
+			fontSize: 26
+		},
 	}
 });
 

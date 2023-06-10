@@ -16,11 +16,7 @@ export const Home = () => {
 			<Stack paddingTop={3} paddingBottom={3} gap={3} alignItems="center">
 				<Logo />
 				{
-					save ? (
-						<Editor />
-					) : (
-						<WaitingForSave />
-					)
+					save ? <Editor /> : <WaitingForSave />
 				}
 			</Stack>
 		</Container>

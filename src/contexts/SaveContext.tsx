@@ -10,6 +10,7 @@ import xmljs from "xml-js";
 import { SdvSnackbar } from '../components/SdvSnackbar/SdvSnackbar';
 import _ from "lodash";
 import { Path } from '../enums/Path';
+import { EndNode, Node, NodeOrEndNode } from '../types/Node';
 
 interface SaveContextProps {
 	save: Save | undefined,
@@ -17,6 +18,8 @@ interface SaveContextProps {
 	isLoading: boolean,
 	loadFromFile: (content: any) => void,
 	download: () => void,
+	get: (path: Path) => undefined | string,
+	set: (path: Path, value: string) => void,
 }
 
 export const SaveContext = createContext<SaveContextProps>({
@@ -29,6 +32,12 @@ export const SaveContext = createContext<SaveContextProps>({
 		//
 	},
 	download: () => {
+		//
+	},
+	get: () => {
+		return "";
+	},
+	set: () => {
 		//
 	}
 });
@@ -59,7 +68,7 @@ export function SaveContextProvider(props: SaveContextProviderProps): JSX.Elemen
 				const result = xmljs.xml2js(e.target.result as string);
 				console.log(result);
 
-				const isValidStardewValleySaveFile = _.get(result, Path.GAME_VERSION_CHECK) === "SaveGame";
+				const isValidStardewValleySaveFile = _.get(result, "elements.0.name") === "SaveGame";
 
 				if (!isValidStardewValleySaveFile) {
 					throw new Error("File isn't a valid Stardew Valley file.");
@@ -95,9 +104,53 @@ export function SaveContextProvider(props: SaveContextProviderProps): JSX.Elemen
 		setOpenDownload(true);
 	}
 
+	const get = (path: Path): undefined | string => {
+		const split = path.split(".");
+
+		let node = _.get(save, "elements.0") as NodeOrEndNode | undefined;
+
+		while (split.length > 0 && node) {
+			const search = split.shift();
+
+			node = node as Node;
+
+			if (node.elements) {
+				node = node.elements.find(subNode => (subNode as Node).name === search) as NodeOrEndNode
+			}
+		}
+
+		if (typeof node === "undefined") return "";
+
+		return ((node as Node).elements[0] as EndNode).text;
+	}
+
+	const set = (path: Path, value: string): void => {
+		let buffer = "elements.0";
+
+		const split = path.split(".");
+		let node = _.get(save, "elements.0") as NodeOrEndNode | undefined;
+
+		while (split.length > 0 && node) {
+			const search = split.shift();
+
+			node = node as Node;
+
+			if (node.elements) {
+				buffer += `.elements.${node.elements.findIndex(subNode => (subNode as Node).name === search)}`
+				node = node.elements.find(subNode => (subNode as Node).name === search) as NodeOrEndNode
+			}
+		}
+
+		buffer += ".elements.0.text";
+
+		if (save) {
+			setSave(_.set(save, buffer, value));
+		}
+	}
+
 	return (
 		<SaveContext.Provider value={{
-			save, setSave, isLoading, loadFromFile, download
+			save, setSave, isLoading, loadFromFile, download, get, set
 		}}
 		>
 			<Dropzone

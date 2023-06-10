@@ -1,7 +1,7 @@
 import { Box } from "@mui/material"
 
 export const SdvCard = (props: {
-	children: JSX.Element
+	children: JSX.Element | JSX.Element[];
 }) => {
 	return (
 		<Box style={{

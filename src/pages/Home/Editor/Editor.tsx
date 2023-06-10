@@ -2,24 +2,26 @@ import { Button, Stack, Typography } from "@mui/material"
 import { SdvCard } from "../../../components/SdvCard/SdvCard"
 import { useContext } from "react"
 import { SaveContext } from "../../../contexts/SaveContext"
+import { SdvInput } from "../../../components/SdvInput/SdvInput"
+import { Blocks } from "./Fields"
 
 export const Editor = () => {
 	const { download } = useContext(SaveContext);
 
 	return (
 		<Stack flexDirection="column" width="100%" gap={3}>
-			<SdvCard>
-				<Typography>Editor</Typography>
-			</SdvCard>
-			<SdvCard>
-				<Typography>Editor</Typography>
-			</SdvCard>
-			<SdvCard>
-				<Typography>Editor</Typography>
-			</SdvCard>
-			<SdvCard>
-				<Typography>Editor</Typography>
-			</SdvCard>
+			{
+				Blocks.map(block => (
+					<SdvCard key={block.key}>
+						<Typography variant="h1">{block.key}</Typography>
+						<Stack direction="row" gap={3} flexWrap="wrap">
+							{
+								block.fields.map(field => (<SdvInput key={field.key} field={field} />))
+							}
+						</Stack>
+					</SdvCard>
+				))
+			}
 			<Button onClick={download} style={{
 				backgroundColor: "#fa9305",
 				border: "3px solid #853605",
