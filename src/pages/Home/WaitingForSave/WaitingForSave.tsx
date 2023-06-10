@@ -12,11 +12,11 @@ export const WaitingForSave = () => {
 				<Hidden xsUp={isLoading}>
 					<Typography>Drag and drop your save file in here to start editing it!</Typography>
 					<input type="file" onChange={(e) => {
-						e.target.value = "";
-
 						if ((e?.target?.files?.length || 0) > 0) {
 							loadFromFile(e?.target?.files && e.target.files[0])
 						}
+
+						e.target.value = "";
 					}} />
 				</Hidden>
 				{
