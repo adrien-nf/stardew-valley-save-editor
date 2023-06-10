@@ -8,6 +8,8 @@ import { Backdrop, Container, Typography } from '@mui/material';
 import { SdvCard } from '../components/SdvCard/SdvCard';
 import xmljs from "xml-js";
 import { SdvSnackbar } from '../components/SdvSnackbar/SdvSnackbar';
+import _ from "lodash";
+import { Path } from '../enums/Path';
 
 interface SaveContextProps {
 	save: Save | undefined,
@@ -55,9 +57,16 @@ export function SaveContextProvider(props: SaveContextProviderProps): JSX.Elemen
 
 			try {
 				const result = xmljs.xml2js(e.target.result as string);
+				console.log(result);
+
+				const isValidStardewValleySaveFile = _.get(result, Path.GAME_VERSION_CHECK) === "SaveGame";
+
+				if (!isValidStardewValleySaveFile) {
+					throw new Error("File isn't a valid Stardew Valley file.");
+				}
+
 				setSave(result)
 				setFilename(file.name);
-				console.log(result);
 			} catch {
 				setOpen(true);
 			} finally {
