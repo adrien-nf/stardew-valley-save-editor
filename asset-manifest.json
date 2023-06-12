@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/stardew-valley-save-editor/static/css/main.fb5aa611.css",
+    "main.js": "/stardew-valley-save-editor/static/js/main.0b709c2e.js",
+    "static/js/787.9fb73487.chunk.js": "/stardew-valley-save-editor/static/js/787.9fb73487.chunk.js",
+    "static/media/Stardew_Valley.ttf": "/stardew-valley-save-editor/static/media/Stardew_Valley.94d4418a519004763596.ttf",
+    "index.html": "/stardew-valley-save-editor/index.html",
+    "main.fb5aa611.css.map": "/stardew-valley-save-editor/static/css/main.fb5aa611.css.map",
+    "main.0b709c2e.js.map": "/stardew-valley-save-editor/static/js/main.0b709c2e.js.map",
+    "787.9fb73487.chunk.js.map": "/stardew-valley-save-editor/static/js/787.9fb73487.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fb5aa611.css",
+    "static/js/main.0b709c2e.js"
+  ]
+}
