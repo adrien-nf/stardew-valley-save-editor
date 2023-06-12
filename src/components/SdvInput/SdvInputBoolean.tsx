@@ -1,4 +1,4 @@
-import { Checkbox, FormControl, FormControlLabel, Typography } from "@mui/material";
+import { Checkbox, FormControlLabel } from "@mui/material";
 import { Field } from "../../pages/Home/Editor/Fields";
 import { useState, useEffect, useContext } from "react";
 import { SaveContext } from "../../contexts/SaveContext";
@@ -18,12 +18,14 @@ export const SdvInputBoolean = (props: {
 		const booleanFromSave = get(Path[props.field.key]) || "false";
 
 		setValue(booleanFromSave === "true");
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [save])
 
 	useEffect(() => {
 		if (value !== null) {
 			set(Path[props.field.key], value ? "true" : "false");
 		}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [value])
 
 	const handleChange = (v: boolean) => {

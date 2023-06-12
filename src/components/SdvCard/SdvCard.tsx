@@ -1,11 +1,12 @@
 import { Box } from "@mui/material"
+import border from "../../images/menu_border.png";
 
 export const SdvCard = (props: {
 	children: JSX.Element | JSX.Element[];
 }) => {
 	return (
 		<Box style={{
-			borderImage: "url('/images/menu_border.png')",
+			borderImage: `url('${border}')`,
 			borderImageSlice: "33%",
 			borderImageRepeat: "stretch",
 			borderStyle: "solid",

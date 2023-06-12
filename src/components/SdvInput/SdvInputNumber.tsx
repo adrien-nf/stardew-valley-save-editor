@@ -16,11 +16,13 @@ export const SdvInputNumber = (props: {
 
 	useEffect(() => {
 		setValue(get(Path[props.field.key]) || "")
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [save])
 
 	useEffect(() => {
 		if (value !== "")
 			set(Path[props.field.key], value);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [value])
 
 	return (
