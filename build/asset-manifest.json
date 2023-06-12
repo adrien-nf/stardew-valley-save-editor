@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/static/css/main.630f9bbc.css",
+    "main.js": "/static/js/main.b4f8f6d5.js",
+    "static/js/787.9fb73487.chunk.js": "/static/js/787.9fb73487.chunk.js",
+    "static/media/Stardew_Valley.ttf": "/static/media/Stardew_Valley.94d4418a519004763596.ttf",
+    "index.html": "/index.html",
+    "main.630f9bbc.css.map": "/static/css/main.630f9bbc.css.map",
+    "main.b4f8f6d5.js.map": "/static/js/main.b4f8f6d5.js.map",
+    "787.9fb73487.chunk.js.map": "/static/js/787.9fb73487.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.630f9bbc.css",
+    "static/js/main.b4f8f6d5.js"
+  ]
+}
