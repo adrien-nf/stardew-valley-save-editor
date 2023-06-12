@@ -3,10 +3,13 @@ import { Field } from "../../pages/Home/Editor/Fields";
 import { useState, useEffect, useContext } from "react";
 import { SaveContext } from "../../contexts/SaveContext";
 import { Path } from "../../enums/Path";
+import { useTranslation } from "react-i18next";
 
 export const SdvInputText = (props: {
 	field: Field
 }) => {
+	const { t } = useTranslation();
+
 	const { get, save, set } = useContext(SaveContext);
 
 	const [value, setValue] = useState("");
@@ -22,7 +25,7 @@ export const SdvInputText = (props: {
 
 	return (
 		<TextField
-			label={props.field.key}
+			label={t(props.field.key)}
 			type={props.field.type === "boolean" ? "text" : props.field.type}
 			variant="outlined"
 			size="small"

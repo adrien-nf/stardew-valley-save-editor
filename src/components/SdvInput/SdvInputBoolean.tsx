@@ -1,12 +1,15 @@
-import { Checkbox, FormControl, Typography } from "@mui/material";
+import { Checkbox, FormControl, FormControlLabel, Typography } from "@mui/material";
 import { Field } from "../../pages/Home/Editor/Fields";
 import { useState, useEffect, useContext } from "react";
 import { SaveContext } from "../../contexts/SaveContext";
 import { Path } from "../../enums/Path";
+import { useTranslation } from "react-i18next";
 
 export const SdvInputBoolean = (props: {
 	field: Field
 }) => {
+	const { t } = useTranslation();
+
 	const { get, save, set } = useContext(SaveContext);
 
 	const [value, setValue] = useState<boolean | null>(null);
@@ -28,9 +31,6 @@ export const SdvInputBoolean = (props: {
 	}
 
 	return (
-		<FormControl>
-			<Typography>{props.field.key}</Typography>
-			<Checkbox checked={!!value} onChange={(e) => handleChange(e.target.checked)} />
-		</FormControl>
+		<FormControlLabel control={<Checkbox checked={!!value} onChange={(e) => handleChange(e.target.checked)} />} label={t(props.field.key)} />
 	)
 }

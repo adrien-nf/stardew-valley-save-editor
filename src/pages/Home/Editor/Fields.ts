@@ -68,25 +68,6 @@ const PlayerCharacteristics: Block = {
 	],
 }
 
-const PlayerMisc: Block = {
-	key: "MISC",
-	fields:
-		[
-			{
-				key: "PLAYER_CAVE_CHOICE",
-				type: "boolean",
-			},
-			{
-				key: "PLAYER_MAX_ITEMS",
-				type: "number",
-			},
-			{
-				key: "PLAYER_SAVE_TIME",
-				type: "number",
-			},
-		]
-}
-
 // Crashes the game
 // export const FarmForm: Block = {
 // 	key: "FARM_BLOCK",
