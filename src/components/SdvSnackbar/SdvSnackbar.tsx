@@ -13,7 +13,7 @@ export const SdvSnackbar = (props: {
 			message={props.message}
 			ContentProps={{
 				style: {
-					borderImage: "url('/images/menu_border.png')",
+					borderImage: "url('images/menu_border.png')",
 					borderImageSlice: "33%",
 					borderImageRepeat: "stretch",
 					borderStyle: "solid",
