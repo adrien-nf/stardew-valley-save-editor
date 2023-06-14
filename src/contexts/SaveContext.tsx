@@ -72,17 +72,17 @@ export function SaveContextProvider(props: SaveContextProviderProps): JSX.Elemen
 					throw new Error("Please use CHARACTER_123456789 file instead of SaveGameInfo.");
 				}
 
+				// Error is caught in block
 				const isValidStardewValleySaveFile = _.get(result, "elements.0.name") === "SaveGame";
 
-				if (!isValidStardewValleySaveFile) {
-					throw new Error("File isn't a valid Stardew Valley file.");
-				}
-
-				console.log(result);
 				setSave(result)
 				setFilename(file.name);
 			} catch (e: any) {
-				enqueueSnackbar(e.message);
+				if (e.message.startsWith("Please use")) {
+					enqueueSnackbar(e.message);
+				} else {
+					enqueueSnackbar("File isn't a valid Stardew Valley file.")
+				}
 				setOpen(true);
 			} finally {
 				setIsLoading(false);
@@ -165,9 +165,6 @@ export function SaveContextProvider(props: SaveContextProviderProps): JSX.Elemen
 					loadFromFile(files[0]);
 				}}
 				maxFiles={1}
-				// onDropRejected={() => {
-				// 	errorSnackbar("File isn't a valid CSV.")
-				// }}
 				onDrop={() => {
 					setIsFileBackdropOpen(false)
 				}}

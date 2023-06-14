@@ -52,7 +52,7 @@ root.render(
 		<ThemeProvider theme={theme}>
 			<SnackbarProvider Components={{
 				default: StyledMaterialDesignContent
-			}}>
+			}} autoHideDuration={5000}>
 				<SaveContextProvider>
 					<App />
 				</SaveContextProvider>
