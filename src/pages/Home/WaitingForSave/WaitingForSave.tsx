@@ -19,7 +19,6 @@ export const WaitingForSave = () => {
 				<Box>
 					<Typography variant="h2">2. {t("Demo.Step2")}</Typography>
 					<Box>
-						<Typography variant="subtitle1">{t("Demo.Step1.Subtitle")}</Typography>
 						<Hidden xsUp={isLoading}>
 							<input style={{
 							}} type="file" onChange={(e) => {

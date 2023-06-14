@@ -1,8 +1,9 @@
-import { Box } from "@mui/material"
+import { Box, BoxProps } from "@mui/material"
 import border from "../../images/menu_border.png";
 
 export const SdvCard = (props: {
 	children: JSX.Element | JSX.Element[];
+	props?: BoxProps | undefined;
 }) => {
 	return (
 		<Box style={{
@@ -18,8 +19,13 @@ export const SdvCard = (props: {
 			paddingTop: 8,
 			paddingBottom: 8,
 			borderRadius: 9,
+			...props.props?.style
 		}}>
 			{props.children}
 		</Box>
 	)
+}
+
+SdvCard.defaultProps = {
+	props: undefined
 }

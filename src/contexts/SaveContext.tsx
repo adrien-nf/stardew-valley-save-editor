@@ -7,10 +7,10 @@ import Dropzone from 'react-dropzone';
 import { Backdrop, Container, Typography } from '@mui/material';
 import { SdvCard } from '../components/SdvCard/SdvCard';
 import xmljs from "xml-js";
-import { SdvSnackbar } from '../components/SdvSnackbar/SdvSnackbar';
 import _ from "lodash";
 import { Path } from '../enums/Path';
 import { EndNode, Node, NodeOrEndNode } from '../types/Node';
+import { useSnackbar } from 'notistack';
 
 interface SaveContextProps {
 	save: Save | undefined,
@@ -53,6 +53,7 @@ export function SaveContextProvider(props: SaveContextProviderProps): JSX.Elemen
 	const [isLoading, setIsLoading] = useState(false);
 	const [open, setOpen] = useState(false);
 	const [openDownload, setOpenDownload] = useState(false);
+	const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
 	const loadFromFile = (file: File) => {
 		const reader = new FileReader()
@@ -67,6 +68,10 @@ export function SaveContextProvider(props: SaveContextProviderProps): JSX.Elemen
 			try {
 				const result = xmljs.xml2js(e.target.result as string);
 
+				if (file.name.startsWith("SaveGameInfo")) {
+					throw new Error("Please use CHARACTER_123456789 file instead of SaveGameInfo.");
+				}
+
 				const isValidStardewValleySaveFile = _.get(result, "elements.0.name") === "SaveGame";
 
 				if (!isValidStardewValleySaveFile) {
@@ -76,7 +81,8 @@ export function SaveContextProvider(props: SaveContextProviderProps): JSX.Elemen
 				console.log(result);
 				setSave(result)
 				setFilename(file.name);
-			} catch {
+			} catch (e: any) {
+				enqueueSnackbar(e.message);
 				setOpen(true);
 			} finally {
 				setIsLoading(false);
@@ -178,18 +184,18 @@ export function SaveContextProvider(props: SaveContextProviderProps): JSX.Elemen
 							<input {...getInputProps()} />
 							{props.children}
 							<Backdrop open={isFileBackdropOpen}>
-								<Container>
-									<SdvCard>
-										<Typography align="center">Make sure this is a valid Stardew Valley save file!</Typography>
-									</SdvCard>
-								</Container>
+								<SdvCard props={{
+									style: {
+										width: "auto",
+									}
+								}}>
+									<Typography align="center" width="auto">Make sure this is a valid Stardew Valley save file!</Typography>
+								</SdvCard>
 							</Backdrop>
 						</div>
 					</section>
 				)}
 			</Dropzone>
-			<SdvSnackbar open={open} setOpen={setOpen} message="File isn't a valid Stardew Valley save file." />
-			<SdvSnackbar open={openDownload} setOpen={setOpenDownload} message={`File downloaded as ${filename}.`} />
 		</SaveContext.Provider >
 	);
 }
