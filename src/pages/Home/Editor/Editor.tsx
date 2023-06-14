@@ -4,16 +4,18 @@ import { useContext } from "react"
 import { SaveContext } from "../../../contexts/SaveContext"
 import { SdvInput } from "../../../components/SdvInput/SdvInput"
 import { Blocks } from "./Fields"
+import { useTranslation } from "react-i18next"
 
 export const Editor = () => {
 	const { download } = useContext(SaveContext);
+	const { t } = useTranslation();
 
 	return (
 		<Stack flexDirection="column" width="100%" gap={3}>
 			{
 				Blocks.map(block => (
 					<SdvCard key={block.key}>
-						<Typography variant="h1">{block.key}</Typography>
+						<Typography variant="h1">{t(block.key)}</Typography>
 						<Stack direction="row" gap={3} flexWrap="wrap">
 							{
 								block.fields.map(field => (<SdvInput key={field.key} field={field} />))

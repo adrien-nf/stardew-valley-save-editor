@@ -12,6 +12,12 @@ const root = ReactDOM.createRoot(
 
 const theme = createTheme({
 	typography: {
+		h1: {
+			fontSize: 40
+		},
+		h2: {
+			fontSize: 36
+		},
 		allVariants: {
 			color: "#541304",
 			fontFamily: "Stardew_Valley",
